@@ -1,7 +1,7 @@
 name: CI PIPELINE
 
 on:
-  push:
+  workflow_dispatch: 
 
 jobs:
   build:
