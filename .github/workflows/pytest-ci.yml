@@ -43,8 +43,7 @@ jobs:
     needs: package
     environment: dev
     steps:
-      - name: Download Artifact
-        uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v4
         with:
           name: app1-artifact
 
@@ -53,3 +52,18 @@ jobs:
           echo "Deploying to DEV"
           mkdir dev-release
           tar -xzf app1.tar.gz -C dev-release
+
+  deploy-prod:
+    runs-on: ubuntu-latest
+    needs: deploy-dev
+    environment: prod
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: app1-artifact
+
+      - name: Deploy to Prod
+        run: |
+          echo "Deploying to PRODUCTION"
+          mkdir prod-release
+          tar -xzf app1.tar.gz -C prod-release
